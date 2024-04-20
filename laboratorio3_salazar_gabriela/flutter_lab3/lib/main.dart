@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'App',
       theme: ThemeData(
+        fontFamily: 'Anton',
         // This is the theme of your application.
         //
         // TRY THIS: Try running your application with "flutter run". You'll see
@@ -102,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                'Veces que se ha hecho click:',
+                'Hola',
               ),
               Text(
                 '$_counter',
@@ -114,7 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: _resetCounter,
           tooltip: 'Reiniciar contador',
-          child: const Icon(Icons.arrow_back),
+          child: SvgPicture.asset(
+            'assets/icons/gamecontrol.svg',
+            width: 50,
+            height: 50,
+          ),
         ),
         persistentFooterAlignment: AlignmentDirectional.bottomCenter,
         persistentFooterButtons: [
@@ -133,6 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           )
         ]
+
         // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
