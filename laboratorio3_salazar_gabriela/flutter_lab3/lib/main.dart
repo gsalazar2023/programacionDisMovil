@@ -5,6 +5,80 @@ void main() {
   runApp(const MyApp());
 }
 
+class Detail extends StatelessWidget {
+  const Detail({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail'),
+      ),
+      body: Center(
+          child: Column(
+        children: <Widget>[
+          const SizedBox(
+            height: 300,
+          ),
+          const Text("Hola"),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Volver")),
+        ],
+      )),
+    );
+  }
+}
+
+class ListDetail extends StatelessWidget {
+  const ListDetail({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('List'),
+      ),
+      body: Center(
+        //Lista
+        child: ListView(
+          children: <Widget>[
+            //Elementos de lista se usan con container
+            Container(
+                height: 50,
+                color: Colors.blue,
+                child: const Center(
+                  child: Text("Item 1"),
+                )),
+            Container(
+                height: 50,
+                color: Colors.blue,
+                child: const Center(
+                  child: Text("Item 2"),
+                )),
+            Container(
+                height: 50,
+                color: Colors.blue,
+                child: const Center(
+                  child: Text("Item 3"),
+                )),
+          ],
+        ),
+      ),
+      persistentFooterAlignment: AlignmentDirectional.bottomCenter,
+      persistentFooterButtons: [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context); //regresar
+            },
+            child: const Text("Volver"))
+      ],
+    );
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -88,64 +162,85 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(
-            widget.title,
-            textAlign: TextAlign.center,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          widget.title,
+          textAlign: TextAlign.center,
+        ),
+      ),
+      body: Center(
+        child: Card(
+          elevation: 20,
+          color: Colors.blue,
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+
+            //Columna
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SvgPicture.asset(
+                  iconoW,
+                  height: 100,
+                  width: 100,
+                ),
+                Text(
+                  mensaje,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ),
+                Text(
+                  '$_counter ',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+
+                //Fila de botones
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  ElevatedButton(
+                    onPressed: _incrementCounter,
+                    child: const Icon(Icons.arrow_upward),
+                  ),
+                  ElevatedButton(
+                      onPressed: _resetCounter,
+                      child: const Icon(
+                        Icons.restart_alt,
+                      )),
+                  ElevatedButton(
+                      onPressed: _decrementCounter,
+                      child: const Icon(Icons.arrow_downward)),
+                ])
+              ],
+            ),
           ),
         ),
-        body: Center(
-            child: Card(
-                elevation: 20,
-                color: Colors.blue,
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-
-                  //Columna
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SvgPicture.asset(
-                        iconoW,
-                        height: 100,
-                        width: 100,
-                      ),
-                      Text(
-                        mensaje,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                        ),
-                      ),
-                      Text(
-                        '$_counter ',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                        ),
-                      ),
-
-                      //Fila de botones
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FloatingActionButton(
-                              onPressed: _incrementCounter,
-                              child: const Icon(Icons.arrow_forward),
-                            ),
-                            FloatingActionButton(
-                                onPressed: _resetCounter,
-                                child: const Icon(
-                                  Icons.restart_alt,
-                                )),
-                            FloatingActionButton(
-                                onPressed: _decrementCounter,
-                                child: const Icon(Icons.arrow_back)),
-                          ])
-                    ],
-                  ),
-                ))));
+      ),
+      persistentFooterAlignment: AlignmentDirectional.bottomCenter,
+      persistentFooterButtons: <Widget>[
+        //USAR UNICO FLOATING BUTTON
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Detail())); //ir a Detail
+            },
+            child: const Text("Detail")),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ListDetail())); //ir a lista
+            },
+            child: const Text("Lista"))
+      ],
+    );
   }
 }
