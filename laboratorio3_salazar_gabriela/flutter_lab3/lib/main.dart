@@ -15,22 +15,6 @@ class MyApp extends StatelessWidget {
       title: 'App',
       theme: ThemeData(
         fontFamily: 'Anton',
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        //Color de la app
         colorScheme:
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 0, 204)),
         useMaterial3: true,
@@ -45,15 +29,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -62,10 +37,21 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String mensaje = "";
+  String iconoW = 'assets/icons/fireinthehole.svg';
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+      if (_counter >= 15) {
+        mensaje = "Victoria";
+        iconoW = 'assets/icons/fireinthehole.svg';
+      } else if (_counter == 10) {
+        mensaje = "Derrota";
+        iconoW = 'assets/icons/fire.svg';
+      } else {
+        mensaje = "Hola";
+      }
     });
   }
 
@@ -76,6 +62,16 @@ class _MyHomePageState extends State<MyHomePage> {
       if (_counter < 0) {
         _counter = 0;
       }
+
+      if (_counter >= 15) {
+        mensaje = "Victoria";
+        iconoW = 'assets/icons/fireinthehole.svg';
+      } else if (_counter == 10) {
+        mensaje = "Derrota";
+        iconoW = 'assets/icons/fire.svg';
+      } else {
+        mensaje = "Hola";
+      }
     });
   }
 
@@ -83,6 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void _resetCounter() {
     setState(() {
       _counter = 0;
+      if (_counter == 0) {
+        mensaje = "Hola de nuevo";
+      }
     });
   }
 
@@ -91,56 +90,62 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
+          title: Text(
+            widget.title,
+            textAlign: TextAlign.center,
+          ),
         ),
         body: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: Column(
-            // Column is also a layout widget. It takes a list of children and
-            // arranges them vertically. By default, it sizes itself to fit its
-            // children horizontally, and tries to be as tall as its parent.
+            child: Card(
+                elevation: 20,
+                color: Colors.blue,
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
 
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'Hello world',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _resetCounter,
-          tooltip: 'Reiniciar contador',
-          child: SvgPicture.asset(
-            'assets/icons/gamecontrol.svg',
-            width: 50,
-            height: 50,
-          ),
-        ),
-        persistentFooterAlignment: AlignmentDirectional.bottomCenter,
-        persistentFooterButtons: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FloatingActionButton(
-                  onPressed: _decrementCounter,
-                  child: const Icon(Icons.arrow_downward),
-                  tooltip: 'Disminuir'),
-              FloatingActionButton(
-                onPressed: _incrementCounter,
-                child: const Icon(Icons.arrow_upward),
-                tooltip: "Aumentar",
-              )
-            ],
-          )
-        ]
+                  //Columna
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SvgPicture.asset(
+                        iconoW,
+                        height: 100,
+                        width: 100,
+                      ),
+                      Text(
+                        mensaje,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                        ),
+                      ),
+                      Text(
+                        '$_counter ',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                      ),
 
-        // This trailing comma makes auto-formatting nicer for build methods.
-        );
+                      //Fila de botones
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FloatingActionButton(
+                              onPressed: _incrementCounter,
+                              child: const Icon(Icons.arrow_forward),
+                            ),
+                            FloatingActionButton(
+                                onPressed: _resetCounter,
+                                child: const Icon(
+                                  Icons.restart_alt,
+                                )),
+                            FloatingActionButton(
+                                onPressed: _decrementCounter,
+                                child: const Icon(Icons.arrow_back)),
+                          ])
+                    ],
+                  ),
+                ))));
   }
 }
