@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
@@ -106,16 +107,70 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() {
+    // ignore: avoid_print
+    print('MyHomePage: State created');
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String mensaje = "";
   String iconoW = 'assets/icons/fireinthehole.svg';
+  _MyHomePageState() {
+    // ignore: avoid_print
+    print('_MyHomePageState: constructor called');
+  }
+
+  @override
+  //inicializa variables y config iniciales
+  void initState() {
+    super.initState();
+    print('initState: called');
+    print('initState: mounted = $mounted');
+  }
+
+  @override
+  //cuando se cambian las dependencias de un widget
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('didChangeDependencies: called');
+  }
+
+  @override
+  //se reconstruye widget con nuevas propiedades
+  void didUpdateWidget(MyHomePage old) {
+    super.didUpdateWidget(old);
+    print('didUpdateWidget: called');
+  }
+
+  @override
+  //cuando se remueve widget de arbol de widget. tambien se puede hacer limpieza de recursos
+  void deactivate() {
+    print('deactivate: called');
+    super.deactivate();
+  }
+
+  @override
+  //para eliminar permanentemente el widget de la lista
+  void dispose() {
+    print('dispose: called');
+    super.dispose();
+    print('dispose: mounted = $mounted');
+  }
+
+  @override
+  void reassemble() {
+    //para cuando la app se vuelve a armar durante un hot reload
+    super.reassemble();
+    print('reassemble: called');
+    print('reassemble: mounted = $mounted');
+  }
 
   void _incrementCounter() {
     setState(() {
+      print("setState counter++");
       _counter++;
       if (_counter >= 15) {
         mensaje = "Victoria";
@@ -132,6 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //al presionar el boton, el contador decrece
   void _decrementCounter() {
     setState(() {
+      print("set state: counter--");
       _counter--;
       if (_counter < 0) {
         _counter = 0;
@@ -152,6 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // se resetea contador al presionar el boton
   void _resetCounter() {
     setState(() {
+      print("set state: reset counter");
       _counter = 0;
       if (_counter == 0) {
         mensaje = "Hola de nuevo";
@@ -161,6 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print('build: called');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
