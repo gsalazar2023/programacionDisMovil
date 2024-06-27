@@ -6,6 +6,60 @@ void main() {
   runApp(const MyApp());
 }
 
+class Sensores extends StatelessWidget {
+  const Sensores({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sensores'),
+      ),
+      body: Center(
+          child: Column(
+        children: <Widget>[
+          const SizedBox(
+            height: 300,
+          ),
+          const Text("Hola"),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Volver")),
+        ],
+      )),
+    );
+  }
+}
+
+class Gestos extends StatelessWidget {
+  const Gestos({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Gestos'),
+      ),
+      body: Center(
+          child: Column(
+        children: <Widget>[
+          const SizedBox(
+            height: 300,
+          ),
+          const Text("Hola"),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Volver")),
+        ],
+      )),
+    );
+  }
+}
+
 class Detail extends StatelessWidget {
   const Detail({super.key});
 
@@ -225,6 +279,59 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(
           widget.title,
           textAlign: TextAlign.center,
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.cyan),
+              child: Text("Drawer Menu"),
+            ),
+            ListTile(
+              title: const Text('Ejemplo Card'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Detalles'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Detail()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Lista'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ListDetail()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Sensores'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Sensores()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Gestos'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Gestos()),
+                );
+              },
+            ),
+          ],
         ),
       ),
       body: Center(
